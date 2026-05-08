@@ -10,11 +10,15 @@ import lombok.ToString;
 @ToString
 
 @Entity
-@Table(name = "categories")
-public class Category {
+@Table(name = "tasks")
+public class Task {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-
     private Integer id;
-    private String name;
+    private String title;
+    private String description;
+    private String status;
+    private String priority;
+    private String assigned;
+    private String owner;
 }

@@ -10,11 +10,12 @@ import lombok.ToString;
 @ToString
 
 @Entity
-@Table(name = "categories")
-public class Category {
+@Table(name = "products")
+public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
 
     private Integer id;
     private String name;
+    private Double price;
 }
