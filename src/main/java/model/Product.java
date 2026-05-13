@@ -18,4 +18,8 @@ public class Product {
     private Integer id;
     private String name;
     private Double price;
+
+    @ManyToOne
+    @JoinColumn(name = "category_id")
+    private Category category;
 }

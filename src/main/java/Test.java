@@ -120,34 +120,84 @@ public class Test {
 //            System.out.println("Ошибка: " + e.getMessage());
 //        }
 
+////        Задача
+//        Scanner scanner = new Scanner(System.in);
+//        String title = scanner.nextLine();
+//        String description = scanner.nextLine();
+//        String status = scanner.nextLine();
+//        String priority = scanner.nextLine();
+//        String assigned = scanner.nextLine();
+//        String owner = scanner.nextLine();
+//
+//
+//        Task task = new Task();
+//        task.setTitle(title);
+//        task.setDescription(description);
+//        task.setStatus(status);
+//        task.setPriority(priority);
+//        task.setAssigned(assigned);
+//        task.setOwner(owner);
+//
+//        try {
+//            System.out.println("До создания " + task.getId());
+//            entityManager.getTransaction().begin();
+//
+//            entityManager.persist(task);
+//
+//            entityManager.getTransaction().commit();
+//            System.out.println("Задача создана " + task.getId() + title + " ." + description + " ." + status + " ." + priority + " ." + assigned + " ." + owner);
+//        } catch (Exception e) {
+//            entityManager.getTransaction().rollback();
+//            System.out.println("Ошибка: " + e.getMessage());
+//        }
+
+//        Product product = entityManager.find(Product.class, 1);
+//        System.out.println(product);
+
+//        List<Product> products = entityManager.createQuery("select p from Product p", Product.class)
+//                .getResultList();
+//
+//        for (Product product : products) {
+//            System.out.println(product);
+//        }
+
+        //// ==============Создание товара через input связь many to one ==========================
+        List<Category> list = entityManager.createQuery("select c from Category c", Category.class).getResultList();
+
+        for (Category category : list) {
+            System.out.println(category.getId() + ". " + category.getName());
+        }
+
         Scanner scanner = new Scanner(System.in);
-        String title = scanner.nextLine();
-        String description = scanner.nextLine();
-        String status = scanner.nextLine();
-        String priority = scanner.nextLine();
-        String assigned = scanner.nextLine();
-        String owner = scanner.nextLine();
+        System.out.println("Выберите категорию :");
+        Integer chooseCategory = Integer.parseInt(scanner.nextLine());
+
+        Category category = entityManager.find(Category.class, chooseCategory);
+        if (category == null) {
+            System.out.println("Неверная категория");
+            return;
+        }
+
+        System.out.println("Введите название товара :");
+        String name = scanner.nextLine();
+        System.out.println("Введите стоимость :");
+        Double price = Double.parseDouble(scanner.nextLine());
 
 
-        Task task = new Task();
-        task.setTitle(title);
-        task.setDescription(description);
-        task.setStatus(status);
-        task.setPriority(priority);
-        task.setAssigned(assigned);
-        task.setOwner(owner);
+        Product product = new Product();
+        product.setName(name);
+        product.setPrice(price);
+        product.setCategory(category);
 
         try {
-            System.out.println("До создания " + task.getId());
             entityManager.getTransaction().begin();
-
-            entityManager.persist(task);
-
+            entityManager.persist(product);
             entityManager.getTransaction().commit();
-            System.out.println("Задача создана " + task.getId() + title + " ." + description + " ." + status + " ." + priority + " ." + assigned + " ." + owner);
+            System.out.println("Товар создан");
         } catch (Exception e) {
             entityManager.getTransaction().rollback();
-            System.out.println("Ошибка: " + e.getMessage());
+            System.out.println("Ошибка " + e.getMessage());
         }
+
     }
 }
