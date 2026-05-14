@@ -1,4 +1,5 @@
 import jakarta.persistence.*;
+import model.Attribute;
 import model.Category;
 import model.Product;
 import model.Task;
@@ -162,42 +163,61 @@ public class Test {
 //        }
 
         //// ==============Создание товара через input связь many to one ==========================
-        List<Category> list = entityManager.createQuery("select c from Category c", Category.class).getResultList();
+//        List<Category> list = entityManager.createQuery("select c from Category c", Category.class).getResultList();
+//
+//        for (Category category : list) {
+//            System.out.println(category.getId() + ". " + category.getName());
+//        }
+//
+//        Scanner scanner = new Scanner(System.in);
+//        System.out.println("Выберите категорию :");
+//        Integer chooseCategory = Integer.parseInt(scanner.nextLine());
+//
+//        Category category = entityManager.find(Category.class, chooseCategory);
+//        if (category == null) {
+//            System.out.println("Неверная категория");
+//            return;
+//        }
+//
+//        System.out.println("Введите название товара :");
+//        String name = scanner.nextLine();
+//        System.out.println("Введите стоимость :");
+//        Double price = Double.parseDouble(scanner.nextLine());
+//
+//
+//        Product product = new Product();
+//        product.setName(name);
+//        product.setPrice(price);
+//        product.setCategory(category);
+//
+//        try {
+//            entityManager.getTransaction().begin();
+//            entityManager.persist(product);
+//            entityManager.getTransaction().commit();
+//            System.out.println("Товар создан");
+//        } catch (Exception e) {
+//            entityManager.getTransaction().rollback();
+//            System.out.println("Ошибка " + e.getMessage());
+//        }
 
-        for (Category category : list) {
-            System.out.println(category.getId() + ". " + category.getName());
+
+        //// ==============Создание товара через input связь one to many ==========================
+//        List<Category> categories = entityManager.createQuery("select c from Category c", Category.class).getResultList();
+//         for (Category c : categories) {
+//             System.out.println("_________" + c.getName());
+//             for (Product product : c.getProductList()) {
+//                 System.out.println(product.getId() + ". " + product.getName() + " (" + product.getPrice() +")");
+//             }
+//         }
+
+
+        Category category =   entityManager.find(Category.class, 3);
+        System.out.println(category.getName());
+//        for (Category c : categories) {
+//            System.out.println("________" + c.getName());
+            for (Attribute attribute : category.getAttributeList()) {
+                System.out.println(attribute.getId() + ". " + attribute.getName());
+            }
         }
-
-        Scanner scanner = new Scanner(System.in);
-        System.out.println("Выберите категорию :");
-        Integer chooseCategory = Integer.parseInt(scanner.nextLine());
-
-        Category category = entityManager.find(Category.class, chooseCategory);
-        if (category == null) {
-            System.out.println("Неверная категория");
-            return;
-        }
-
-        System.out.println("Введите название товара :");
-        String name = scanner.nextLine();
-        System.out.println("Введите стоимость :");
-        Double price = Double.parseDouble(scanner.nextLine());
-
-
-        Product product = new Product();
-        product.setName(name);
-        product.setPrice(price);
-        product.setCategory(category);
-
-        try {
-            entityManager.getTransaction().begin();
-            entityManager.persist(product);
-            entityManager.getTransaction().commit();
-            System.out.println("Товар создан");
-        } catch (Exception e) {
-            entityManager.getTransaction().rollback();
-            System.out.println("Ошибка " + e.getMessage());
-        }
-
     }
-}
+
