@@ -4,6 +4,7 @@ import model.Category;
 import model.Product;
 import model.Task;
 
+import javax.swing.text.AttributeSet;
 import java.util.List;
 import java.util.Scanner;
 
@@ -210,14 +211,45 @@ public class Test {
 //             }
 //         }
 
+        //// CW
 
-        Category category =   entityManager.find(Category.class, 3);
-        System.out.println(category.getName());
-//        for (Category c : categories) {
-//            System.out.println("________" + c.getName());
-            for (Attribute attribute : category.getAttributeList()) {
-                System.out.println(attribute.getId() + ". " + attribute.getName());
+//        Category category = entityManager.find(Category.class, 3);
+//        System.out.println(category.getName());
+//            for (Attribute attribute : category.getAttributeList()) {
+//                System.out.println(attribute.getId() + ". " + attribute.getName());
+//            }
+//        }
+
+        //// HW
+
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Введите название категории :");
+        String name = scanner.nextLine();
+        System.out.println("Введите характеристики (через запятую и пробел) :");
+        String characteristic = scanner.nextLine();
+        String[] attributes = characteristic.split(", ");
+
+        Category category = new Category();
+        category.setName(name);
+        try {
+            entityManager.getTransaction().begin();
+            entityManager.persist(category);
+
+            for (String a : attributes) {
+                Attribute attribute = new Attribute();
+                attribute.setName(a);
+                attribute.setCategory(category);
+
+                entityManager.persist(attribute);
+
             }
+            entityManager.getTransaction().commit();
+            System.out.println("Категория создана");
+        } catch (Exception e) {
+            entityManager.getTransaction().rollback();
+            System.out.println("Ошибка " + e.getMessage());
         }
+
     }
+}
 
