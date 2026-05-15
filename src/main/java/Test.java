@@ -1,8 +1,5 @@
 import jakarta.persistence.*;
-import model.Attribute;
-import model.Category;
-import model.Product;
-import model.Task;
+import model.*;
 
 import javax.swing.text.AttributeSet;
 import java.util.List;
@@ -11,6 +8,7 @@ import java.util.Scanner;
 public class Test {
     public static void main(String[] args) {
 
+        Scanner scanner = new Scanner(System.in);
         EntityManagerFactory factory = Persistence.createEntityManagerFactory("default");
         EntityManager entityManager = factory.createEntityManager();
 
@@ -222,33 +220,60 @@ public class Test {
 
         //// HW
 
-        Scanner scanner = new Scanner(System.in);
-        System.out.println("Введите название категории :");
-        String name = scanner.nextLine();
-        System.out.println("Введите характеристики (через запятую и пробел) :");
-        String characteristic = scanner.nextLine();
-        String[] attributes = characteristic.split(", ");
+//        Scanner scanner = new Scanner(System.in);
+//        System.out.println("Введите название категории :");
+//        String name = scanner.nextLine();
+//        System.out.println("Введите характеристики (через запятую и пробел) :");
+//        String characteristic = scanner.nextLine();
+//        String[] attributes = characteristic.split(", ");
+//
+//        Category category = new Category();
+//        category.setName(name);
+//        try {
+//            entityManager.getTransaction().begin();
+//            entityManager.persist(category);
+//
+//            for (String a : attributes) {
+//                Attribute attribute = new Attribute();
+//                attribute.setName(a);
+//                attribute.setCategory(category);
+//
+//                entityManager.persist(attribute);
+//
+//            }
+//            entityManager.getTransaction().commit();
+//            System.out.println("Категория создана");
+//        } catch (Exception e) {
+//            entityManager.getTransaction().rollback();
+//            System.out.println("Ошибка " + e.getMessage());
+//        }
 
-        Category category = new Category();
-        category.setName(name);
-        try {
-            entityManager.getTransaction().begin();
-            entityManager.persist(category);
+        //// CW ENUM
 
-            for (String a : attributes) {
-                Attribute attribute = new Attribute();
-                attribute.setName(a);
-                attribute.setCategory(category);
+        //// Получение задачи по id через ENUM
+//        Task task = entityManager.find(Task.class, 1);
+//        System.out.println(task.getId() + ". "+ task.getTitle());
+//        System.out.println("status=" + task.getStatus());
 
-                entityManager.persist(attribute);
+        //// создание задачи через ENUM
+//        Task task = new Task();
+//        task.setTitle("Задача по внедрению X");
+//        task.setDescription("...");
+//        task.setPriority(TaskPriority.NORMAL);
+//        task.setStatus(TaskStatus.OPEN);
+//        task.setAssigned("empolyee1");
+//        task.setOwner("employee4");
+//
+//        try {
+//            entityManager.getTransaction().begin();
+//            entityManager.persist(task);
+//            entityManager.getTransaction().commit();
+//            System.out.println("Задача создана");
+//        } catch (Exception e) {
+//            entityManager.getTransaction().rollback();
+//            System.out.println(e.getMessage());
+//        }
 
-            }
-            entityManager.getTransaction().commit();
-            System.out.println("Категория создана");
-        } catch (Exception e) {
-            entityManager.getTransaction().rollback();
-            System.out.println("Ошибка " + e.getMessage());
-        }
 
     }
 }

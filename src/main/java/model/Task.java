@@ -17,8 +17,10 @@ public class Task {
     private Integer id;
     private String title;
     private String description;
-    private String status;
-    private String priority;
+    @Enumerated(EnumType.STRING)
+    private TaskStatus status;
+    @Enumerated(EnumType.STRING)
+    private TaskPriority priority;
     private String assigned;
     private String owner;
 }
