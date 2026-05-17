@@ -5,29 +5,27 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
+import java.sql.Timestamp;
 import java.util.List;
 
 @Getter
 @Setter
 @ToString
 
-@Entity
-@Table(name = "products")
-public class Product {
+public class Order {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-
     private Integer id;
-    private String name;
-    private Double price;
+    @Enumerated(EnumType.STRING)
+    private String status;
+    private String address;
+    private Timestamp created_at;
 
     @ManyToOne
-    @JoinColumn(name = "category_id")
-    private Category category;
+    @JoinColumn(name = "user_id")
+    private User user;
 
-    @OneToMany (mappedBy = "product")
-    private List<ProductAttribute> productAttributeList;
+    @OneToMany(mappedBy = "order")
     private List<OrderProduct> orderProductList;
-    private List<Review> reviewList;
 
 }
