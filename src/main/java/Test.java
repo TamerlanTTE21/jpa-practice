@@ -2,8 +2,12 @@ import jakarta.persistence.*;
 import model.*;
 
 import javax.swing.text.AttributeSet;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Scanner;
+
+import static model.enums.OrderStatus.SHIPPED;
+import static model.enums.UserRole.ADMIN;
 
 public class Test {
     public static void main(String[] args) {
@@ -273,6 +277,63 @@ public class Test {
 //            entityManager.getTransaction().rollback();
 //            System.out.println(e.getMessage());
 //        }
+
+        // CW
+//        User user = new User();
+//        order.setRole(ADMIN);
+//        order.setLogin("Bob");
+//        order.setPassword("12345");
+//        order.setCreatedAt(LocalDateTime.now());
+//
+//        try {
+//            entityManager.getTransaction().begin();
+//            entityManager.persist(order);
+//            entityManager.getTransaction().commit();
+//            System.out.println("Пользователь создан");
+//        } catch (Exception e) {
+//            entityManager.getTransaction().rollback();
+//            System.out.println(e.getMessage());
+//        }
+
+
+//        Order order = new Order();
+//        User user = entityManager.find(User.class, 1);
+//        OrderProduct orderProduct = new OrderProduct();
+//        Product product = entityManager.find(Product.class, 2);
+//        order.setStatus(SHIPPED);
+//        order.setAddress("NYC");
+//        order.setCreatedAt(LocalDateTime.now());
+//        order.setUser(user);
+//        orderProduct.setOrder(order);
+//        orderProduct.setProduct(product);
+//        orderProduct.setCount(3);
+//
+//        OrderProduct orderProduct1 = new OrderProduct();
+//        Product product1 = entityManager.find(Product.class, 4);
+//        orderProduct1.setOrder(order);
+//        orderProduct1.setProduct(product1);
+//        orderProduct1.setCount(8);
+
+
+//        try {
+//            entityManager.getTransaction().begin();
+//            entityManager.persist(order);
+//            entityManager.persist(orderProduct);
+//            entityManager.persist(orderProduct1);
+//            entityManager.getTransaction().commit();
+//            System.out.println("Заказ создан");
+//        } catch (Exception e) {
+//            entityManager.getTransaction().rollback();
+//            System.out.println(e.getMessage());
+//        }
+
+        List<Order> list = entityManager.createQuery("select o from Order o", Order.class).getResultList();
+        for (Order o : list) {
+            System.out.println(o.getId() + ". " + o.getAddress() + ". " + o.getCreatedAt() + ". " + o.getUser().getLogin() + ". " + o.getStatus());
+            for (OrderProduct orderProduct : o.getOrderProductList()) {
+                System.out.println(orderProduct.getId() + ". " + orderProduct.getProduct().getName() + ". кол-во: " + orderProduct.getCount());
+            }
+        }
 
 
     }

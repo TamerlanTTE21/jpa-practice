@@ -7,7 +7,10 @@ import lombok.ToString;
 
 @Getter
 @Setter
-@ToString
+
+
+@Entity
+@Table(name = "order_products")
 public class OrderProduct {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

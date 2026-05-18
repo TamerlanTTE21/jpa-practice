@@ -9,7 +9,7 @@ import java.util.List;
 
 @Getter
 @Setter
-@ToString
+
 
 @Entity
 @Table(name = "products")
@@ -27,7 +27,9 @@ public class Product {
 
     @OneToMany (mappedBy = "product")
     private List<ProductAttribute> productAttributeList;
+    @OneToMany (mappedBy = "product")
     private List<OrderProduct> orderProductList;
+    @OneToMany (mappedBy = "product")
     private List<Review> reviewList;
 
 }

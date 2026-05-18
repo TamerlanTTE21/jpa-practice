@@ -4,22 +4,29 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
+import model.enums.OrderStatus;
 
 import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Getter
 @Setter
-@ToString
+
+
+@Entity
+@Table(name = "orders")
 
 public class Order {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     @Enumerated(EnumType.STRING)
-    private String status;
+    private OrderStatus status;
     private String address;
-    private Timestamp created_at;
+
+    @Column(name="created_at")
+    private LocalDateTime createdAt;
 
     @ManyToOne
     @JoinColumn(name = "user_id")

@@ -6,18 +6,24 @@ import lombok.Setter;
 import lombok.ToString;
 
 import java.sql.Timestamp;
+import java.time.LocalDateTime;
 
 @Getter
 @Setter
-@ToString
+
+
+@Entity
+@Table(name = "reviews")
 public class Review {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    private Boolean is_published;
+    @Column(name="is_published")
+    private Boolean isPublished;
     private Integer rating;
     private String text;
-    private Timestamp created_at;
+    @Column(name="created_at")
+    private LocalDateTime createdAt;
 
     @ManyToOne
     @JoinColumn(name = "user_id")

@@ -4,6 +4,8 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
+import model.enums.TaskPriority;
+import model.enums.TaskStatus;
 
 @Getter
 @Setter
